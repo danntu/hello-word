@@ -32,9 +32,25 @@ const  store = createStore(playlist);
 
 store.subscribe(()=>{
     console.log('subscribe', store.getState());
+    const list = document.querySelectorAll('.list')[0];
 });
 
 store.dispatch({type: 'ADD_TRACK', payload : 'Smells like spirit'});
-store.dispatch({type: 'ADD_TRACK', payload : 'Smells like spirit'});
+store.dispatch({type: 'ADD_TRACK', payload : 'Enter Sandman'});
 store.dispatch({type: 'UPDATE_TRACK', payload : 'Opmai'});
 store.dispatch({type: 'DELETE_ALL_TRACK'});
+
+// add new track
+const addTrackBtn = document.querySelectorAll('.addTrack')[0];
+addTrackBtn.addEventListener('click', ()=>{
+    const trackName = document.querySelectorAll('.trackInput')[0].value;
+    console.log('trackName ',trackName);
+    store.dispatch({type: 'ADD_TRACK', payload : trackName});
+});
+
+
+//delete all track
+const deleteAllTrackBtn = document.querySelectorAll('.deleteAllTrack')[0];
+deleteAllTrackBtn.addEventListener('click', ()=>{
+    store.dispatch({type:'DELETE_ALL_TRACK'});
+})
