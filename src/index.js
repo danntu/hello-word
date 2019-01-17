@@ -31,9 +31,24 @@ function playlist(state = [], action ){
 
 const  store = createStore(playlist);
 
+// add new track
+const addTrackBtn = document.querySelectorAll('.addTrack')[0];
+//delete all track
+const deleteAllTrackBtn = document.querySelectorAll('.deleteAllTrack')[0];
+//update track
+const updateTrackBtn = document.querySelectorAll('.updateTrack')[0];
+
+const trackInput = document.querySelectorAll('.trackInput')[0];
+const list = document.querySelectorAll('.list')[0];
+
 store.subscribe(()=>{
-    console.log('subscribe', store.getState());
-    const list = document.querySelectorAll('.list')[0];
+    list.innerHTML = '';
+    trackInput.value = '';
+    store.getState().forEach( track =>{
+       const li = document.createElement('li');
+       li.textContent = track;
+       list.appendChild(li);
+    });
 });
 
 store.dispatch({type: 'ADD_TRACK', payload : 'Smells like spirit'});
@@ -41,17 +56,21 @@ store.dispatch({type: 'ADD_TRACK', payload : 'Enter Sandman'});
 store.dispatch({type: 'UPDATE_TRACK', payload : 'Opmai'});
 store.dispatch({type: 'DELETE_ALL_TRACK'});
 
-// add new track
-const addTrackBtn = document.querySelectorAll('.addTrack')[0];
+
 addTrackBtn.addEventListener('click', ()=>{
-    const trackName = document.querySelectorAll('.trackInput')[0].value;
-    console.log('trackName ',trackName);
+    const trackName = trackInput.value;
     store.dispatch({type: 'ADD_TRACK', payload : trackName});
 });
 
 
-//delete all track
-const deleteAllTrackBtn = document.querySelectorAll('.deleteAllTrack')[0];
+
 deleteAllTrackBtn.addEventListener('click', ()=>{
-    store.dispatch({type:'DELETE_ALL_TRACK'});
-})
+    const trackName = trackInput.value;
+    store.dispatch({type:'DELETE_ALL_TRACK', payload:trackName});
+});
+
+
+updateTrackBtn.addEventListener('click',()=>{
+    const trackName = trackInput.value;
+    store.dispatch({type:'UPDATE_TRACK', payload: trackName});
+});
