@@ -26,6 +26,7 @@ function playlist(state = [], action ){
     if (action.type === 'UPDATE_TRACK'){
         return [ action.payload]
     }
+    return state;
 }
 
 const  store = createStore(playlist);
