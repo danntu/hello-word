@@ -51,17 +51,12 @@ store.subscribe(()=>{
     });
 });
 
-store.dispatch({type: 'ADD_TRACK', payload : 'Smells like spirit'});
-store.dispatch({type: 'ADD_TRACK', payload : 'Enter Sandman'});
-store.dispatch({type: 'UPDATE_TRACK', payload : 'Opmai'});
-store.dispatch({type: 'DELETE_ALL_TRACK'});
 
 
 addTrackBtn.addEventListener('click', ()=>{
     const trackName = trackInput.value;
     store.dispatch({type: 'ADD_TRACK', payload : trackName});
 });
-
 
 
 deleteAllTrackBtn.addEventListener('click', ()=>{
